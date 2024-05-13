@@ -6,6 +6,7 @@ scr = pygame.display.set_mode((1000,600))
 pygame.display.set_caption('Flappy Bird')
 clock  = pygame.time.Clock()
 
+Player = pygame.image.load('graphics/Player.png')
 
 while True:
     for event in pygame.event.get():
@@ -14,7 +15,7 @@ while True:
             exit()
 
 
-
+    scr.blit(Player,(0,0))
 
     pygame.display.update()
     clock.tick(60)
