@@ -5,9 +5,8 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load('graphics/Player.png').convert_alpha()
-        self.rect = self.image.get_rect(center = (200,200))
-        self.velocity = 0
-    
+        self.rect = self.image.get_rect(center = (350,200))
+        self.velocity = 0    
     
     def jump(self):
         keys = pygame.key.get_pressed()

@@ -1,11 +1,9 @@
 import pygame
-from random import randint
-
 class Obstacle(pygame.sprite.Sprite):
     def __init__(self,position): 
         super().__init__()
             
-        self.image = pygame.image.load('graphics/Upobs.png')
+        self.image = pygame.image.load('graphics/Upobs.png').convert_alpha()
         self.rect = self.image.get_rect(bottomleft=(1100, position))
 
     def update(self):
@@ -13,3 +11,5 @@ class Obstacle(pygame.sprite.Sprite):
 
     def obstacle_movement(self):
         self.rect.x -= 2
+        if self.rect.x < 50:         
+            self.kill()

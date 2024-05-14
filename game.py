@@ -38,7 +38,6 @@ def collision():
 
 pygame.init()
 
-
 #setting up the screen
 scr = pygame.display.set_mode((1000,600))
 pygame.display.set_caption('Flappy Bird')
@@ -65,6 +64,7 @@ obstacle_list = []
 
 active = True
 
+score = 0
 Top_obs = pygame.sprite.Group()
 bottom_obs = pygame.sprite.Group()
 
@@ -84,9 +84,7 @@ while runnig:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                velocity = -11
+
         if event.type == obstacle_timer:
             position = randint(40,360)
             Top_obs.add(Obstacle(position))
@@ -103,15 +101,18 @@ while runnig:
         player.update()
         Top_obs.draw(scr)
         Top_obs.update()
-        
-        
 
-        #obstacleList = obstacle_movment(obstacle_list)
-        #active = collisions(player.__getattribute__('rect'),obstacleList)
+
+        for obs in Top_obs:
+            if obs.rect.x < 200:
+                score +=1
+                print(score)
+                obs.kill()
+
+        
        
         active = collision()
-        #if Playerr_rect.colliderect(UpObs_rect):
-            #runnig = False
+        
     else:
         scr.fill('Green')
 
