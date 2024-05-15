@@ -21,3 +21,12 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.jump()
         self.gravity()
+
+
+    def dead(self):
+        if self.rect.y <580:
+            return True
+        elif self.rect.y <0:
+            return True
+        else:
+            return False     
