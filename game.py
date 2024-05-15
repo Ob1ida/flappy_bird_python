@@ -7,6 +7,8 @@ from bottomObstacle import Obstacle2
 
 def collision():
     if pygame.sprite.spritecollide(player.sprite,Top_obs,False) or pygame.sprite.spritecollide(player.sprite,bottom_obs,False):
+        Top_obs.empty()
+        bottom_obs.empty()
         return False
     else:
         return True
@@ -24,6 +26,9 @@ score = 0
 font = pygame.font.Font('font/Pixeltype.ttf',50)
 score_surf = font.render(str(score),False,'Black')
 score_rect = score_surf.get_rect(center = (500,50))
+
+menu_surf2 = font.render("press space to start",False,'Black')
+menu_rect2 = menu_surf2.get_rect(center = (500,250))
 clock  = pygame.time.Clock()
 #loading the images and creating rect
 
@@ -70,11 +75,12 @@ while runnig:
                 position = randint(40,360)
                 Top_obs.add(Obstacle(position))
                 bottom_obs.add(Obstacle2(position))
-       # if not active:
-            #if event.type == pygame.KEYDOWN :
-             #   if event.key == pygame.K_SPACE:
-                  #  if player.death():
-                       # pass
+                
+        if not active:
+                if event.type == pygame.KEYDOWN :
+                    if event.key == pygame.K_SPACE:
+                        player.sprite.restartPos()
+                        active = True
                     
             
     if active: 
@@ -96,13 +102,19 @@ while runnig:
                 print(score)
                 
 
-        if player.sprite.dead():
-            active = 0
+        
        
         active = collision()
-        
-    else:
-        scr.fill('Green')
 
+
+        if player.sprite.dead():
+            Top_obs.empty()
+            bottom_obs.empty()
+            
+            active = 0
+    else:
+        scr.fill((58, 216, 224))
+        scr.blit(menu_surf2,menu_rect2)
+        score = 0
     pygame.display.update()
     clock.tick(60)

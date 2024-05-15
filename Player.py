@@ -24,9 +24,13 @@ class Player(pygame.sprite.Sprite):
 
 
     def dead(self):
-        if self.rect.y <580:
+        if self.rect.y <0:
             return True
-        elif self.rect.y <0:
+        elif self.rect.y >700:
             return True
         else:
             return False     
+        
+
+    def restartPos(self):
+        self.rect.center = (350,200)    
