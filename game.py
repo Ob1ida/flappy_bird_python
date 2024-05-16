@@ -4,7 +4,7 @@ from Player import Player
 from random import randint
 from TopObstacle import Obstacle
 from bottomObstacle import Obstacle2
-
+import pandas as pd
 def collision():
     if pygame.sprite.spritecollide(player.sprite,Top_obs,False) or pygame.sprite.spritecollide(player.sprite,bottom_obs,False):
         Top_obs.empty()
@@ -17,8 +17,18 @@ def update_score():
     score_rect = score_surf.get_rect(center = (500,50))
     scr.blit(score_surf,score_rect)
     pass
+
+def get_max_score():
+    
+    MaxScore = font.render("Highest Score : "+str(scores['Scores'].max()),False,'Black')
+    score_rect = MaxScore.get_rect(center = (500,80))
+    scr.blit(MaxScore,score_rect)
+
+
 pygame.init()
 
+scores = pd.read_csv('scores.csv')
+print(scores['Scores'])
 #setting up the screen
 scr = pygame.display.set_mode((1000,600))
 pygame.display.set_caption('Flappy Bird')
@@ -113,8 +123,16 @@ while runnig:
             
             active = 0
     else:
+        if score > 0:
+            scores.loc[len(scores.index)] = [score]
+            scores.to_csv('scores.csv', index=False)
+            print(scores['Scores'])
+
+        
+
         scr.fill((58, 216, 224))
         scr.blit(menu_surf2,menu_rect2)
+        get_max_score()
         score = 0
     pygame.display.update()
     clock.tick(60)
